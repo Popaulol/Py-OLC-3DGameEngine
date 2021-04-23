@@ -23,7 +23,8 @@ class PyOlcEngine3D:
 
     def on_create(self):
         self.meshCube.LoadFromObjectFile("axis.obj")
-        self.matProj = Matrix_MakeProjection(90.0, float(custom_fast_turtle.ScreenHeight()) / float(custom_fast_turtle.ScreenWidth()), 0.1, 1000.0)
+        self.matProj = Matrix_MakeProjection(90.0, float(custom_fast_turtle.ScreenHeight()) / float(
+            custom_fast_turtle.ScreenWidth()), 0.1, 1000.0)
         return True
 
     def on_update(self, ElapsedTime):
@@ -124,9 +125,9 @@ class PyOlcEngine3D:
                     triProjected.p[0].x *= -1.0
                     triProjected.p[1].x *= -1.0
                     triProjected.p[2].x *= -1.0
-                    triProjected.p[0].y *= -1.0
-                    triProjected.p[1].y *= -1.0
-                    triProjected.p[2].y *= -1.0
+                    # triProjected.p[0].y *= -1.0
+                    # triProjected.p[1].y *= -1.0
+                    # triProjected.p[2].y *= -1.0
 
                     vOffsetView = Vec3d(1, 1, 0)
                     triProjected.p[0] = triProjected.p[0] + vOffsetView
@@ -163,17 +164,19 @@ class PyOlcEngine3D:
                                                                                        Vec3d(0.0, 1.0, 0.0),
                                                                                        test)
                     elif p == 1:
-                        nTrisToAdd, clipped[0], clipped[1] = Triangle_ClipAgainstPlane(Vec3d(0.0, float(custom_fast_turtle.ScreenHeight() - 1), 0.0),
-                                                                                       Vec3d(0.0, -1.0, 0.0),
-                                                                                       test)
+                        nTrisToAdd, clipped[0], clipped[1] = Triangle_ClipAgainstPlane(
+                            Vec3d(0.0, float(custom_fast_turtle.ScreenHeight() - 1), 0.0),
+                            Vec3d(0.0, -1.0, 0.0),
+                            test)
                     elif p == 2:
                         nTrisToAdd, clipped[0], clipped[1] = Triangle_ClipAgainstPlane(Vec3d(0.0, 0.0, 0.0),
                                                                                        Vec3d(1.0, 0.0, 0.0),
                                                                                        test)
                     elif p == 3:
-                        nTrisToAdd, clipped[0], clipped[1] = Triangle_ClipAgainstPlane(Vec3d(float(custom_fast_turtle.ScreenWidth() - 1), 0.0, 0.0),
-                                                                                       Vec3d(-1.0, 0.0, 0.0),
-                                                                                       test)
+                        nTrisToAdd, clipped[0], clipped[1] = Triangle_ClipAgainstPlane(
+                            Vec3d(float(custom_fast_turtle.ScreenWidth() - 1), 0.0, 0.0),
+                            Vec3d(-1.0, 0.0, 0.0),
+                            test)
                     for w in range(nTrisToAdd):
                         listTriangles.append(clipped[w])
 
