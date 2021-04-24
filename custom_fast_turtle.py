@@ -22,7 +22,7 @@ def draw_triangle(t: Triangle, debug: bool = False):
     if debug:
         turtle.color((0, 0, 0), t.color)
     turtle.penup()
-    offset_goto(t.p[1].coords2d())
+    offset_goto(t.p[0].coords2d())
     turtle.pendown()
     turtle.begin_fill()
     for p in t.p:
