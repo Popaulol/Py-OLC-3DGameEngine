@@ -36,8 +36,12 @@ class PyOlcEngine3D:
 
         if Key.left in curr_held:
             self.vCamera.x -= 8.0 * ElapsedTime
+
         if Key.right in curr_held:
             self.vCamera.x += 8.0 * ElapsedTime
+
+        if Key.esc in curr_held:
+            quit()
 
         vForward = self.vLookDir * (8 * ElapsedTime)
 
