@@ -48,6 +48,8 @@ class Vec3d:
 
     def Normalise(self):
         length = self.length()
+        if length == 0:
+            return Vec3d(float("inf"), float("inf"), float("inf"))
         return Vec3d(self.x / length, self.y / length, self.z / length)
 
     def __repr__(self):
