@@ -195,4 +195,4 @@ if __name__ == '__main__':
         win.on_update(timed)
         custom_fast_turtle.update()
         timed = time.time() - start_time
-        print(f"Frame Rendered in {timed}, Camera: {win.vCamera}, Theta: {win.fTheta}")
+        print(f"Frame Rendered in {timed}, We have a framerate of {1/timed} fps")
