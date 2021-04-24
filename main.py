@@ -21,8 +21,8 @@ class PyOlcEngine3D:
     def __init__(self):
         pass
 
-    def on_create(self):
-        self.meshCube.LoadFromObjectFile("axis.obj")
+    def on_create(self, filename):
+        self.meshCube.LoadFromObjectFile(filename)
         self.matProj = Matrix_MakeProjection(90.0, float(custom_fast_turtle.ScreenHeight()) / float(
             custom_fast_turtle.ScreenWidth()), 0.1, 1000.0)
         return True
@@ -80,7 +80,7 @@ class PyOlcEngine3D:
 
         vecTrianglesToRaster = []
 
-        for tri in self.meshCube.tris:
+        for i, tri in enumerate(self.meshCube.tris):
             triProjected, triTransformed, triViewed = Triangle(), Triangle(), Triangle()
 
             triTransformed.p[0] = matWorld * tri.p[0]
@@ -93,7 +93,6 @@ class PyOlcEngine3D:
             normal = line1.CrossProduct(line2)
 
             normal = normal.Normalise()
-
             vCameraRay = triTransformed.p[0] - self.vCamera
 
             if normal.DotProduct(vCameraRay) < 0.0:
@@ -142,7 +141,7 @@ class PyOlcEngine3D:
 
                     vecTrianglesToRaster.append(triProjected)
 
-        vecTrianglesToRaster.sort(key=lambda t1: (t1.p[0].z + t1.p[1].z + t1.p[2].z) / 3.0)
+        vecTrianglesToRaster.sort(key=lambda t1: (t1.p[0].z + t1.p[1].z + t1.p[2].z) / 3.0, reverse=True)
 
         custom_fast_turtle.clear()
 
@@ -189,7 +188,7 @@ class PyOlcEngine3D:
 
 if __name__ == '__main__':
     win = PyOlcEngine3D()
-    win.on_create()
+    win.on_create("axis.obj")
     timed = 0
     while True:
         start_time = time.time()
