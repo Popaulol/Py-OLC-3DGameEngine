@@ -15,7 +15,7 @@ teapot.obj | The famous Utah Teapot model, which was the first Object to ever be
 mountains.obj | A Mountain Range
 VideoShip.obj | A Spaceship
 
-If you want to change the file rendered, the string in line 220 of main.py has to be set to the correct file name.
+If you want to change the file rendered, the string in [line 220 of main.py](https://github.com/Popaulol/Py-OLC-3DGameEngine/blob/0cc133e571a4d0630389499ff5040b213e1468c5/main.py#L220) has to be set to the correct file name.
 
 ## Bugs
 
@@ -41,3 +41,8 @@ up| move up the y axis
 down| move down the y axis
 left| move along the absolute x axis (negative)
 right| move along the absolute x axis (positive)
+
+## Contributing
+If you want to/already have fixed a bug, implemented a feature or do some refactoring feel free to open a PR or Issue.
+
+But Please install [black](https://github.com/psf/black) and run [format.sh](https://github.com/Popaulol/Py-OLC-3DGameEngine/blob/master/format.sh) before every commit, or atleast have the last commit of the PR be running it.
