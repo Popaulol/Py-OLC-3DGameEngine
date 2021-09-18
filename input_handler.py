@@ -1,5 +1,3 @@
-import time
-
 from pynput import keyboard
 
 curr_held = []

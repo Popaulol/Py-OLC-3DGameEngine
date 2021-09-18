@@ -24,7 +24,7 @@ class Triangle:
 
 def Triangle_ClipAgainstPlane(plane_p: Vec3d, plane_n: Vec3d, in_tri: Triangle):
     def dist(p: Vec3d):
-        n = p.Normalise()
+        # n = p.Normalise()
         return (
             plane_n.x * p.x
             + plane_n.y * p.y
