@@ -24,4 +24,11 @@ class Mesh:
                     verts.append(Vec3d(float(x), float(y), float(z)))
                 elif line[0] == "f":
                     p1, p2, p3 = line[2:].split(" ")
-                    self.tris.append(Triangle(verts[int(p1)-1], verts[int(p2)-1], verts[int(p3)-1], (0, 0, 0)))
+                    self.tris.append(
+                        Triangle(
+                            verts[int(p1) - 1],
+                            verts[int(p2) - 1],
+                            verts[int(p3) - 1],
+                            (0, 0, 0),
+                        )
+                    )

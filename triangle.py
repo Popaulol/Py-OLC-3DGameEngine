@@ -5,8 +5,13 @@ class Triangle:
     p: list[Vec3d, Vec3d, Vec3d]
     color: tuple[float, float, float]
 
-    def __init__(self, p1: Vec3d = None, p2: Vec3d = None, p3: Vec3d = None,
-                 color: tuple[float, float, float] = (255, 255, 255)):
+    def __init__(
+        self,
+        p1: Vec3d = None,
+        p2: Vec3d = None,
+        p3: Vec3d = None,
+        color: tuple[float, float, float] = (255, 255, 255),
+    ):
         if p1 is None:
             p1 = Vec3d()
         if p2 is None:
@@ -20,7 +25,12 @@ class Triangle:
 def Triangle_ClipAgainstPlane(plane_p: Vec3d, plane_n: Vec3d, in_tri: Triangle):
     def dist(p: Vec3d):
         n = p.Normalise()
-        return plane_n.x * p.x + plane_n.y * p.y + plane_n.z * p.z - plane_n.DotProduct(plane_p)
+        return (
+            plane_n.x * p.x
+            + plane_n.y * p.y
+            + plane_n.z * p.z
+            - plane_n.DotProduct(plane_p)
+        )
 
     plane_n = plane_n.Normalise()
 
@@ -62,8 +72,12 @@ def Triangle_ClipAgainstPlane(plane_p: Vec3d, plane_n: Vec3d, in_tri: Triangle):
         out_tri1 = Triangle()
         out_tri1.color = in_tri.color
         out_tri1.p[0] = inside_points[0]
-        out_tri1.p[1] = Vector_IntersectPlane(plane_p, plane_n, inside_points[0], outside_points[0])
-        out_tri1.p[2] = Vector_IntersectPlane(plane_p, plane_n, inside_points[0], outside_points[1])
+        out_tri1.p[1] = Vector_IntersectPlane(
+            plane_p, plane_n, inside_points[0], outside_points[0]
+        )
+        out_tri1.p[2] = Vector_IntersectPlane(
+            plane_p, plane_n, inside_points[0], outside_points[1]
+        )
 
         return 1, out_tri1, None
 
@@ -76,10 +90,14 @@ def Triangle_ClipAgainstPlane(plane_p: Vec3d, plane_n: Vec3d, in_tri: Triangle):
 
         out_tri1.p[0] = inside_points[0]
         out_tri1.p[1] = inside_points[1]
-        out_tri1.p[2] = Vector_IntersectPlane(plane_p, plane_n, inside_points[0], outside_points[0])
+        out_tri1.p[2] = Vector_IntersectPlane(
+            plane_p, plane_n, inside_points[0], outside_points[0]
+        )
 
         out_tri2.p[0] = inside_points[1]
         out_tri2.p[1] = out_tri1.p[2]
-        out_tri2.p[2] = Vector_IntersectPlane(plane_p, plane_n, inside_points[1], outside_points[0])
+        out_tri2.p[2] = Vector_IntersectPlane(
+            plane_p, plane_n, inside_points[1], outside_points[0]
+        )
 
         return 2, out_tri1, out_tri2

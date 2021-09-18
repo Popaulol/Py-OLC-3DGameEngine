@@ -2,8 +2,16 @@ import custom_fast_turtle
 from triangle import Triangle, Triangle_ClipAgainstPlane
 from vec3d import Vec3d
 from Mesh import Mesh
-from mat4x4 import Mat4x4, Matrix_MakeProjection, Matrix_MakeRotationX, Matrix_MakeRotationZ, Matrix_MakeTranslation, \
-    Matrix_MakeIdentity, Matrix_MakeRotationY, Matrix_PointAt
+from mat4x4 import (
+    Mat4x4,
+    Matrix_MakeProjection,
+    Matrix_MakeRotationX,
+    Matrix_MakeRotationZ,
+    Matrix_MakeTranslation,
+    # Matrix_MakeIdentity,
+    Matrix_MakeRotationY,
+    Matrix_PointAt,
+)
 
 from input_handler import curr_held
 from pynput.keyboard import Key
@@ -23,8 +31,13 @@ class PyOlcEngine3D:
 
     def on_create(self, filename):
         self.meshCube.LoadFromObjectFile(filename)
-        self.matProj = Matrix_MakeProjection(90.0, float(custom_fast_turtle.ScreenHeight()) / float(
-            custom_fast_turtle.ScreenWidth()), 0.1, 1000.0)
+        self.matProj = Matrix_MakeProjection(
+            90.0,
+            float(custom_fast_turtle.ScreenHeight())
+            / float(custom_fast_turtle.ScreenWidth()),
+            0.1,
+            1000.0,
+        )
         return True
 
     def on_update(self, ElapsedTime):
@@ -67,7 +80,7 @@ class PyOlcEngine3D:
 
         matTrans = Matrix_MakeTranslation(0.0, 0.0, 5.0)
 
-        matWorld = Matrix_MakeIdentity()
+        # matWorld = Matrix_MakeIdentity()
         matWorld = matRotZ * matRotX
         matWorld = matWorld * matTrans
 
@@ -112,9 +125,9 @@ class PyOlcEngine3D:
                 triViewed.color = triTransformed.color
 
                 clipped = [None, None]
-                nClippedTriangles, clipped[0], clipped[1] = Triangle_ClipAgainstPlane(Vec3d(0.0, 0.0, 0.1),
-                                                                                      Vec3d(0.0, 0.0, 1.0),
-                                                                                      triViewed)
+                nClippedTriangles, clipped[0], clipped[1] = Triangle_ClipAgainstPlane(
+                    Vec3d(0.0, 0.0, 0.1), Vec3d(0.0, 0.0, 1.0), triViewed
+                )
                 for n in range(nClippedTriangles):
                     triProjected.p[0] = self.matProj * clipped[n].p[0]
                     triProjected.p[1] = self.matProj * clipped[n].p[1]
@@ -137,15 +150,23 @@ class PyOlcEngine3D:
                     triProjected.p[1] = triProjected.p[1] + vOffsetView
                     triProjected.p[2] = triProjected.p[2] + vOffsetView
                     triProjected.p[0].x *= 0.5 * float(custom_fast_turtle.ScreenWidth())
-                    triProjected.p[0].y *= 0.5 * float(custom_fast_turtle.ScreenHeight())
+                    triProjected.p[0].y *= 0.5 * float(
+                        custom_fast_turtle.ScreenHeight()
+                    )
                     triProjected.p[1].x *= 0.5 * float(custom_fast_turtle.ScreenWidth())
-                    triProjected.p[1].y *= 0.5 * float(custom_fast_turtle.ScreenHeight())
+                    triProjected.p[1].y *= 0.5 * float(
+                        custom_fast_turtle.ScreenHeight()
+                    )
                     triProjected.p[2].x *= 0.5 * float(custom_fast_turtle.ScreenWidth())
-                    triProjected.p[2].y *= 0.5 * float(custom_fast_turtle.ScreenHeight())
+                    triProjected.p[2].y *= 0.5 * float(
+                        custom_fast_turtle.ScreenHeight()
+                    )
 
                     vecTrianglesToRaster.append(triProjected)
 
-        vecTrianglesToRaster.sort(key=lambda t1: (t1.p[0].z + t1.p[1].z + t1.p[2].z) / 3.0, reverse=True)
+        vecTrianglesToRaster.sort(
+            key=lambda t1: (t1.p[0].z + t1.p[1].z + t1.p[2].z) / 3.0, reverse=True
+        )
 
         custom_fast_turtle.clear()
 
@@ -161,23 +182,29 @@ class PyOlcEngine3D:
                     nNewTriangles -= 1
 
                     if p == 0:
-                        nTrisToAdd, clipped[0], clipped[1] = Triangle_ClipAgainstPlane(Vec3d(0.0, 0.0, 0.0),
-                                                                                       Vec3d(0.0, 1.0, 0.0),
-                                                                                       test)
+                        nTrisToAdd, clipped[0], clipped[1] = Triangle_ClipAgainstPlane(
+                            Vec3d(0.0, 0.0, 0.0), Vec3d(0.0, 1.0, 0.0), test
+                        )
                     elif p == 1:
                         nTrisToAdd, clipped[0], clipped[1] = Triangle_ClipAgainstPlane(
-                            Vec3d(0.0, float(custom_fast_turtle.ScreenHeight() - 1), 0.0),
+                            Vec3d(
+                                0.0, float(custom_fast_turtle.ScreenHeight() - 1), 0.0
+                            ),
                             Vec3d(0.0, -1.0, 0.0),
-                            test)
+                            test,
+                        )
                     elif p == 2:
-                        nTrisToAdd, clipped[0], clipped[1] = Triangle_ClipAgainstPlane(Vec3d(0.0, 0.0, 0.0),
-                                                                                       Vec3d(1.0, 0.0, 0.0),
-                                                                                       test)
+                        nTrisToAdd, clipped[0], clipped[1] = Triangle_ClipAgainstPlane(
+                            Vec3d(0.0, 0.0, 0.0), Vec3d(1.0, 0.0, 0.0), test
+                        )
                     elif p == 3:
                         nTrisToAdd, clipped[0], clipped[1] = Triangle_ClipAgainstPlane(
-                            Vec3d(float(custom_fast_turtle.ScreenWidth() - 1), 0.0, 0.0),
+                            Vec3d(
+                                float(custom_fast_turtle.ScreenWidth() - 1), 0.0, 0.0
+                            ),
                             Vec3d(-1.0, 0.0, 0.0),
-                            test)
+                            test,
+                        )
                     for w in range(nTrisToAdd):
                         listTriangles.append(clipped[w])
 
@@ -188,7 +215,7 @@ class PyOlcEngine3D:
         return True
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     win = PyOlcEngine3D()
     win.on_create("axis.obj")
     timed = 0

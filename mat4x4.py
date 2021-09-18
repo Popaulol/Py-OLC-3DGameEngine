@@ -14,17 +14,41 @@ class Mat4x4:
     def __mul__(self, other):
         if isinstance(other, Vec3d):
             v = Vec3d()
-            v.x = other.x * self.m[0][0] + other.y * self.m[1][0] + other.z * self.m[2][0] + other.w * self.m[3][0]
-            v.y = other.x * self.m[0][1] + other.y * self.m[1][1] + other.z * self.m[2][1] + other.w * self.m[3][1]
-            v.z = other.x * self.m[0][2] + other.y * self.m[1][2] + other.z * self.m[2][2] + other.w * self.m[3][2]
-            v.w = other.x * self.m[0][3] + other.y * self.m[1][3] + other.z * self.m[2][3] + other.w * self.m[3][3]
+            v.x = (
+                other.x * self.m[0][0]
+                + other.y * self.m[1][0]
+                + other.z * self.m[2][0]
+                + other.w * self.m[3][0]
+            )
+            v.y = (
+                other.x * self.m[0][1]
+                + other.y * self.m[1][1]
+                + other.z * self.m[2][1]
+                + other.w * self.m[3][1]
+            )
+            v.z = (
+                other.x * self.m[0][2]
+                + other.y * self.m[1][2]
+                + other.z * self.m[2][2]
+                + other.w * self.m[3][2]
+            )
+            v.w = (
+                other.x * self.m[0][3]
+                + other.y * self.m[1][3]
+                + other.z * self.m[2][3]
+                + other.w * self.m[3][3]
+            )
             return v
         elif isinstance(other, Mat4x4):
             matrix = Mat4x4()
             for c in range(4):
                 for r in range(4):
-                    matrix.m[r][c] = self.m[r][0] * other.m[0][c] + self.m[r][1] * other.m[1][c] + self.m[r][2] * \
-                                     other.m[2][c] + self.m[r][3] * other.m[3][c]
+                    matrix.m[r][c] = (
+                        self.m[r][0] * other.m[0][c]
+                        + self.m[r][1] * other.m[1][c]
+                        + self.m[r][2] * other.m[2][c]
+                        + self.m[r][3] * other.m[3][c]
+                    )
             return matrix
         return NotImplemented
 
@@ -45,9 +69,21 @@ class Mat4x4:
         matrix.m[2][2] = self.m[2][2]
         matrix.m[2][3] = 0.0
 
-        matrix.m[3][0] = -(self.m[3][0] * matrix.m[0][0] + self.m[3][1] * matrix.m[1][0] + self.m[3][2] * matrix.m[2][0]);
-        matrix.m[3][1] = -(self.m[3][0] * matrix.m[0][1] + self.m[3][1] * matrix.m[1][1] + self.m[3][2] * matrix.m[2][1]);
-        matrix.m[3][2] = -(self.m[3][0] * matrix.m[0][2] + self.m[3][1] * matrix.m[1][2] + self.m[3][2] * matrix.m[2][2]);
+        matrix.m[3][0] = -(
+            self.m[3][0] * matrix.m[0][0]
+            + self.m[3][1] * matrix.m[1][0]
+            + self.m[3][2] * matrix.m[2][0]
+        )
+        matrix.m[3][1] = -(
+            self.m[3][0] * matrix.m[0][1]
+            + self.m[3][1] * matrix.m[1][1]
+            + self.m[3][2] * matrix.m[2][1]
+        )
+        matrix.m[3][2] = -(
+            self.m[3][0] * matrix.m[0][2]
+            + self.m[3][1] * matrix.m[1][2]
+            + self.m[3][2] * matrix.m[2][2]
+        )
         matrix.m[3][3] = 1.0
 
         return matrix
@@ -107,7 +143,9 @@ def Matrix_MakeTranslation(x: float, y: float, z: float) -> Mat4x4:
     return matrix
 
 
-def Matrix_MakeProjection(fFovDegrees: float, fAspectRatio: float, fNear: float, fFar: float) -> Mat4x4:
+def Matrix_MakeProjection(
+    fFovDegrees: float, fAspectRatio: float, fNear: float, fFar: float
+) -> Mat4x4:
     fFovRad = 1.0 / tan(fFovDegrees * 0.5 / 180.0 * pi)
     matrix = Mat4x4()
     matrix.m[0][0] = fAspectRatio * fFovRad
@@ -151,4 +189,3 @@ def Matrix_PointAt(pos: Vec3d, target: Vec3d, up: Vec3d) -> Mat4x4:
     matrix.m[3][2] = pos.z
     matrix.m[3][3] = 1.0
     return matrix
-

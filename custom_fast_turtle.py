@@ -31,11 +31,11 @@ def draw_triangle(t: Triangle, debug: bool = False):
 
 
 def ScreenHeight():
-    return turtle.screensize()[0]*2
+    return turtle.screensize()[0] * 2
 
 
 def ScreenWidth():
-    return turtle.screensize()[1]*3
+    return turtle.screensize()[1] * 3
 
 
 def clear():

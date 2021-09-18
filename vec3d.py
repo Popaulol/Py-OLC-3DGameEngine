@@ -56,7 +56,9 @@ class Vec3d:
         return f"Vec3d({self.x}, {self.y}, {self.z})"
 
 
-def Vector_IntersectPlane(plane_p: Vec3d, plane_n: Vec3d, lineStart: Vec3d, lineEnd: Vec3d) -> Vec3d:
+def Vector_IntersectPlane(
+    plane_p: Vec3d, plane_n: Vec3d, lineStart: Vec3d, lineEnd: Vec3d
+) -> Vec3d:
     plane_n = plane_n.Normalise()
     plane_d = -(plane_n.DotProduct(plane_p))
     ad = lineStart.DotProduct(plane_n)
