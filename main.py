@@ -151,9 +151,7 @@ class PyOlcEngine3D:
 
         for triToRaster in vecTrianglesToRaster:
             clipped = [Triangle(), Triangle()]
-            listTriangles = []
-
-            listTriangles.append(triToRaster)
+            listTriangles = [triToRaster]
 
             nNewTriangles = 1
             for p in range(4):
